@@ -10,6 +10,7 @@ app.use(express.urlencoded());
 
 // Parse JSON bodies (as sent by API clients)
 const mongoURI = "http://localhost:"+ process.env.mongoPort + "/"+ process.env.dbName;
+console.log(mongoURI);
 
 app.use(express.json());
 const connection = mongodb.MongoClient.connect(mongoURI,(err, dbClient) =>{
