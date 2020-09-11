@@ -15,8 +15,6 @@ app.use(express.json());
 const connection = mongodb.MongoClient.connect(mongoURI,(err, dbClient) =>{
     if(err){
         console.log('connection failed')
-        res.status(503)
-        res.send('connection failed with db')
         return
     }
 })
