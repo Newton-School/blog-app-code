@@ -20,7 +20,7 @@ const connection = mongodb.MongoClient.connect(mongoURI,(err, dbClient) =>{
         return
     }
 })
-connection.connect();
+
 app.get('/', (req, res) => res.send('Hello World!'))
 
 // your code goes here
