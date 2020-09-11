@@ -9,7 +9,7 @@ app.use(express.urlencoded());
 
 
 // Parse JSON bodies (as sent by API clients)
-const mongoURI = "http://localhost:"+ process.env.DB_END_POINT + "/"+ process.env.DB_DATABASE_NAME;
+const mongoURI = "http://localhost:27017"+ "/blog"
 console.log(mongoURI);
 
 app.use(express.json());

@@ -20,10 +20,5 @@ services:
 - name: mongo
   image: mongo:4
   command: [ --smallfiles ]
-  environment:
-    DB_END_POINT: 
-      from_secret: mongoPort
-    DB_DATABASE_NAME:
-      from_secret: dbName
   ports:
   - 27017
