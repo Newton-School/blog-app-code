@@ -21,4 +21,4 @@ services:
   image: mongo:4
   command: [ --smallfiles ]
   ports:
-  - 27017
+    - 27017
