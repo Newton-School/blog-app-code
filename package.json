@@ -1,0 +1,30 @@
+{
+  "name": "blog-app-code",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Newton-School/blog-app-code.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongodb": "^3.6.2"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "dotenv": "^8.2.0",
+    "mocha": "^8.1.1",
+    "node-serialize": "0.0.4"
+  },
+  "bugs": {
+    "url": "https://github.com/Newton-School/blog-app-code/issues"
+  },
+  "homepage": "https://github.com/Newton-School/blog-app-code#readme"
+}
