@@ -37,7 +37,7 @@ app.get('/allblog', (req, res) => {
 	const str = req.query.search || '';
 	col
 		.aggregate([
-			{ $match: { $text: { $search: str } } },
+			// { $match: { $text: { $search: str } } },
 			{
 				$skip: skip,
 			},
@@ -60,12 +60,12 @@ app.post('/post/blog', (req, res) => {
 	// console.log(req.body);
 	const { topic, description, posted_at, posted_by } = req.body;
 	if (!topic || !description || !posted_at || !posted_by)
-		return res.json({
+		return res.status(200).json({
 			status: 'failed',
 		});
 	col.insertOne(res.body, (err, result) => {
 		if (err) {
-			return res.json({
+			return res.status(200).json({
 				status: 'failed',
 			});
 		}
@@ -90,7 +90,7 @@ app.patch('/update/blog/:id', (req, res) => {
 		},
 		(err, result) => {
 			if (err) {
-				return res.json({
+				return res.status(200).json({
 					status: 'failed',
 				});
 			}
@@ -108,7 +108,7 @@ app.delete('/delete/blog/:id', (req, res) => {
 	col.findOneAndDelete({ _id: id }, (err, result) => {
 		console.log(err, result);
 		if (err) {
-			return res.json({
+			return res.status(200).json({
 				status: 'failed',
 			});
 		}
