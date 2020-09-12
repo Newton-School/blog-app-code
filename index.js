@@ -61,7 +61,7 @@ app.post('/post/blog', (req, res) => {
 	const { topic, description, posted_at, posted_by } = req.body;
 	if (!topic || !description || !posted_at || !posted_by)
 		return res.json({
-			error: 'error',
+			status: 'failed',
 		});
 	col.insertOne(res.body, (err, result) => {
 		if (err) {
@@ -70,7 +70,7 @@ app.post('/post/blog', (req, res) => {
 			});
 		}
 		const data = result.ops[0];
-		res.json({
+		res.status(200).json({
 			status: 'success',
 			result: data,
 		});
