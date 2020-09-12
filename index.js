@@ -48,7 +48,7 @@ app.get('/allblog', (req, res) => {
 		.toArray()
 		.then((results) => {
 			// console.log(results);
-			res.json({
+			res.status(200).json({
 				status: 'success',
 				result: results,
 			});
@@ -95,7 +95,7 @@ app.patch('/update/blog/:id', (req, res) => {
 				});
 			}
 			const data = result.value;
-			res.json({
+			res.status(200).json({
 				status: 'success',
 				result: data,
 			});
@@ -113,7 +113,7 @@ app.delete('/delete/blog/:id', (req, res) => {
 			});
 		}
 		const data = result.value;
-		res.json({
+		res.status(200).json({
 			status: 'success',
 			result: data,
 		});
