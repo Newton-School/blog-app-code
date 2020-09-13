@@ -39,7 +39,7 @@ app.get("/", (req, res) => res.send("Hello World!"));
 // 		});
 // 	})
 // 	.catch(err => {
-// 		console.error("DB Connection Failed", err);
+// 		console.log("connection failed");
 // 	});
 
 app.use(morgan("dev"));

@@ -69,7 +69,7 @@ exports.deleteBlog = (req, res) => {
 	const { id } = req.params;
 
 	Blog.findOneAndDelete({ _id: id }).exec((err, result) => {
-		if (err) {
+		if (err || !result) {
 			return res.json({
 				status: "failed",
 			});
