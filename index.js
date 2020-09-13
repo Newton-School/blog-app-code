@@ -22,7 +22,6 @@ const connection = mongodb.MongoClient.connect(mongoURI,(err, dbClient) =>{
         console.log('connection failed')
         return
     }
-    console.log("Connection successfull")
     const collection = dbClient.db("blog-database").collection("blog")
     collection.createIndex({topic: "text"})
 
@@ -32,7 +31,6 @@ const connection = mongodb.MongoClient.connect(mongoURI,(err, dbClient) =>{
             assert(page !== null && page >= 0, "Invalid page value")
             assert(search.length > 0, "Search can't be empty")
             const result = await collection.find({$text: {$search: search}}).skip((page-1)*RESULT_PER_PAGE).limit(RESULT_PER_PAGE).toArray()
-            console.log(result)
             res.json({
                 status: "success",
                 result: result
