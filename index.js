@@ -28,7 +28,7 @@ const connection = mongodb.MongoClient.connect(mongoURI,(err, dbClient) =>{
     app.get("/allblog", async (req, res) => {
         const {page, search} = req.query
         try {
-            assert(page !== null && page >= 0, "Invalid page value")
+            assert(page !== null && Number.isInteger(page) && page >= 0, "Invalid page value")
             assert(search.length > 0, "Search can't be empty")
             const result = await collection.find({$text: {$search: search}}).skip((page-1)*RESULT_PER_PAGE).limit(RESULT_PER_PAGE).toArray()
             res.json({
