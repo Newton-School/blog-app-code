@@ -82,7 +82,7 @@ exports.allBlogs = (req, res) => {
   Blog.find({ topic: { $regex: search, $options: "i" } })
     .skip((parseInt(page) - 1) * 5)
     .limit(5)
-    .exec((err, result) => {
+    .exec((err, blogs) => {
       if (err) {
         return res.json({
           status: "failed",
@@ -91,7 +91,7 @@ exports.allBlogs = (req, res) => {
 
       return res.json({
         status: "success",
-        result,
+        result: blogs,
       });
     });
 };
