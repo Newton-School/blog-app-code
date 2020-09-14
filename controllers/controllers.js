@@ -15,9 +15,8 @@ exports.updateFields = (req, res) => {
     }
   ).exec((err, user) => {
     if (err || !user) {
-      return res.status(400).json({
-        status: "failure",
-        error: `unable to get posts from database ${err}`,
+      return res.status(200).json({
+        status: "failed",
       });
     }
     return res.json({
@@ -36,11 +35,11 @@ exports.updateFields = (req, res) => {
 exports.deletePost = (req, res) => {
   const id = req.params.id;
 
-  Posts.findByIdAndRemove(id)
+  Posts.findByIdAndDelete(id)
     .then((data) => {
       if (!data) {
-        res.status(404).send({
-          status: "failure",
+        res.status(200).send({
+          status: "failed",
         });
       } else {
         res.send({
@@ -56,8 +55,8 @@ exports.deletePost = (req, res) => {
       }
     })
     .catch((err) => {
-      res.status(500).send({
-        status: "failure",
+      res.status(200).send({
+        status: "failed",
       });
     });
 };
@@ -69,8 +68,8 @@ exports.addNewPost = (req, res) => {
 
   newArticle.save((err, articleData) => {
     if (err)
-      return res.status(401).json({
-        error: `error in saving to database ${err}`,
+      return res.status(200).json({
+        status: "failed",
       });
     return res.json({
       status: "success",
