@@ -10,13 +10,16 @@ app.use(express.urlencoded());
 
 
 // Parse JSON bodies (as sent by API clients)
-const mongoURI = "mongodb://localhost"+"/blog"
+const mongoURI = "mongodb://localhost:27017"+"/blog"
 console.log(mongoURI);
 
 app.use(express.json());
 mongoose.connect(mongoURI,(err, dbClient) =>{
     if(err){
+        
         console.log('connection failed')
+
+        console.log(err);
         return
     }
 })
