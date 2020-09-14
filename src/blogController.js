@@ -28,12 +28,8 @@ exports.getAll = (req, res) => {
 };
 
 exports.create = (req, res) => {
-	console.log(req.body);
+	// console.log(req.body);
 	const { topic, description, posted_at, posted_by } = req.body;
-	// if (!topic || !description || !posted_at || !posted_by)
-	// 	return res.json({
-	// 		status: 'failed',
-	// 	});
 	Blog.create({ topic, description, posted_at, posted_by }, (err, result) => {
 		// console.log(result);
 		if (err || !result) {
@@ -68,7 +64,6 @@ exports.update = (req, res) => {
 					status: 'failed',
 				});
 			}
-			// const data = result.value;
 			const { _id, topic, description, posted_at, posted_by } = result;
 			res.status(200).json({
 				status: 'success',
