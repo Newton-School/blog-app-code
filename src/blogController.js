@@ -28,27 +28,30 @@ exports.getAll = (req, res) => {
 };
 
 exports.create = (req, res) => {
-	// console.log(req.body);
-	const { topic, description, posted_at, posted_by } = req.body;
-	Blog.create({ topic, description, posted_at, posted_by }, (err, result) => {
-		// console.log(result);
-		if (err || !result) {
-			return res.status(200).json({
-				status: 'failed',
+	console.log(req.body);
+	const { _id, topic, description, posted_at, posted_by } = req.body;
+	Blog.create(
+		{ _id, topic, description, posted_at, posted_by },
+		(err, result) => {
+			// console.log(result);
+			if (err || !result) {
+				return res.status(200).json({
+					status: 'failed',
+				});
+			}
+			const { _id, topic, description, posted_at, posted_by } = result;
+			res.status(200).json({
+				status: 'success',
+				result: {
+					_id,
+					topic,
+					description,
+					posted_at,
+					posted_by,
+				},
 			});
 		}
-		const { _id, topic, description, posted_at, posted_by } = result;
-		res.status(200).json({
-			status: 'success',
-			result: {
-				_id,
-				topic,
-				description,
-				posted_at,
-				posted_by,
-			},
-		});
-	});
+	);
 };
 
 exports.update = (req, res) => {
