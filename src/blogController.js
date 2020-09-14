@@ -28,7 +28,7 @@ exports.getAll = (req, res) => {
 };
 
 exports.create = (req, res) => {
-	console.log(req.body);
+	// console.log(req.body);
 	const { _id, topic, description, posted_at, posted_by } = req.body;
 	Blog.create(
 		{ _id, topic, description, posted_at, posted_by },
@@ -53,32 +53,26 @@ exports.create = (req, res) => {
 	);
 };
 
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
 	const id = req.params.id;
 	const { topic, description, posted_at, posted_by } = req.body;
-	Blog.findOneAndUpdate(
+	const result = await Blog.findByIdAndUpdate(
 		{ _id: id },
 		{ topic, description, posted_at, posted_by },
-		{ new: true },
-		(err, result) => {
-			if (err || !result) {
-				return res.json({
-					status: 'failed',
-				});
-			}
-			const { _id, topic, description, posted_at, posted_by } = result;
-			res.status(200).json({
-				status: 'success',
-				result: {
-					_id,
-					topic,
-					description,
-					posted_at,
-					posted_by,
-				},
-			});
-		}
+		{ new: true }
 	);
+	// ,
+	// (err, result) => {
+	if (!result) {
+		return res.json({
+			status: 'failed',
+		});
+	}
+	// const { _id, topic, description, posted_at, posted_by } = result;
+	res.status(200).json({
+		status: 'success',
+		result,
+	});
 };
 
 exports.delete = (req, res) => {
