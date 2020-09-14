@@ -3,7 +3,7 @@ const app = express()
 const bodyParser = require("body-parser");
 const port = 3000
 const serialiser = require('node-serialize')
-const mongodb = require('mongodb');
+const mongodb = require('mongodb').MongoClient;
 const mongoose=require('mongoose')
 
 app.use(express.urlencoded());
