@@ -8,6 +8,7 @@
     commands:
       - npm install -g mongodb
       - npm install
+      - npm install mongoose
       - npm install -g mocha
       - npm -g install chai
       - npm -g install chai-http
