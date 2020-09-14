@@ -76,20 +76,20 @@ app.post('/post/blog', (req, res) => {
 	});
 });
 
-app.patch('/update/blog/:id', (req, res) => {
-	// console.log(req.params.id, req.body);
+app.put('/update/blog/:id', (req, res) => {
 	const id = new ObjectId(req.params.id);
+	const { topic, description, posted_at, posted_by } = req.body;
 	col.findOneAndUpdate(
 		{ _id: id },
 		{
-			$set: req.body,
+			$set: { topic, description, posted_at, posted_by },
 		},
 		{
 			returnNewDocument: true,
 		},
 		(err, result) => {
 			if (err) {
-				return res.status(200).json({
+				return res.json({
 					status: 'failed',
 				});
 			}
