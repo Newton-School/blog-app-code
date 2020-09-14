@@ -14,12 +14,9 @@ const mongoURI = "mongodb://localhost:27017"+"/blog"
 console.log(mongoURI);
 
 app.use(express.json());
-const connection = mongoose.connect(mongoURI,(err, dbClient) =>{
-    if(err){
-        console.log('connection failed')
-        return
-    }
-})
+mongoose.connect(mongoURI)
+    .then(()=>console.log("Mongo Db connected"))
+    .catch(err=>console.log(err))
 
 // app.get('/', (req, res) => res.send('Hello World!'))
 app.use('/',require('./route/api'))
