@@ -16,22 +16,16 @@ exports.addBlog = (req, res) => {
     ObjectID,
   });
 
-  newBlog.save((err, __) => {
-    // if (err) {
-    //   return res.status(400).json({
-    //     error: "Something went wrong.",
-    //   });
-    // }
+  newBlog.save((err, blog) => {
+    if (err) {
+      return res.json({
+        status: "failed",
+      });
+    }
 
     res.json({
       status: "success",
-      result: {
-        id: ObjectID,
-        topic: topic,
-        description: description,
-        posted_at: posted_at,
-        posted_by: posted_by,
-      },
+      result: blog,
     });
   });
 };
@@ -40,22 +34,15 @@ exports.deleteBlog = (req, res) => {
   const ObjectID = req.params.id;
 
   Blog.findOneAndDelete({ ObjectID }).exec((err, blog) => {
-    // if (err) {
-    //   return res.status(400).json({
-    //     error: "Error in deleting the Blog",
-    //     err,
-    //   });
-    // }
+    if (err || !blog) {
+      return res.json({
+        status: "failed",
+      });
+    }
 
     return res.json({
       status: "success",
-      result: {
-        id: ObjectID,
-        topic: blog.topic,
-        description: blog.description,
-        posted_at: blog.posted_at,
-        posted_by: blog.posted_by,
-      },
+      result: blog,
     });
   });
 };
@@ -65,18 +52,6 @@ exports.updateBlog = (req, res) => {
   const ObjectID = req.params.id;
 
   Blog.findOne({ ObjectID }).exec((err, blog) => {
-    if (err) {
-      return res.status(401).json({
-        error: "Something went wrong!!",
-      });
-    }
-
-    if (!blog) {
-      return res.status(401).json({
-        error: "Blog with the given id does not exist!!",
-      });
-    }
-
     const updateFields = {
       topic: topic,
       description: description,
@@ -86,23 +61,37 @@ exports.updateBlog = (req, res) => {
 
     blog = _.extend(blog, updateFields);
 
-    blog.save((err) => {
+    blog.save((err, blog) => {
       if (err) {
-        return res.status(400).json({
-          error: "Something went wrong in saving the data",
+        return res.json({
+          status: "failed",
         });
       }
 
       return res.json({
         status: "success",
-        result: {
-          id: ObjectID,
-          topic: blog.topic,
-          description: blog.description,
-          posted_at: blog.posted_at,
-          posted_by: blog.posted_by,
-        },
+        result: blog,
       });
     });
   });
+};
+
+exports.allBlogs = (req, res) => {
+  const { page, search } = req.query;
+
+  Blog.find({ topic: { $regex: search, $options: "i" } })
+    .skip((parseInt(page) - 1) * 5)
+    .limit(5)
+    .exec((err, result) => {
+      if (err) {
+        return res.json({
+          status: "failed",
+        });
+      }
+
+      return res.json({
+        status: "success",
+        result,
+      });
+    });
 };

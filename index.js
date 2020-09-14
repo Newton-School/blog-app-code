@@ -28,13 +28,13 @@ app.use(
   })
 );
 
-// app.use(express.json());
-// const connection = mongodb.MongoClient.connect(mongoURI, (err, dbClient) => {
-//   if (err) {
-//     console.log("connection failed");
-//     return;
-//   }
-// });
+app.use(express.json());
+const connection = mongodb.MongoClient.connect(mongoURI, (err, dbClient) => {
+  if (err) {
+    console.log("connection failed");
+    return;
+  }
+});
 
 app.get("/", (req, res) => res.send("Hello World!"));
 
@@ -43,22 +43,22 @@ app.get("/", (req, res) => res.send("Hello World!"));
 // here
 app.use("/", blogRoutes);
 
-// app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
-mongoose
-  .connect(mongoURI, {
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-    useFindAndModify: true,
-    useNewUrlParser: true,
-  })
-  .then(() => {
-    app.listen(port, () => {
-      console.log(`DB connected and the server is runnning at ${port}`);
-    });
-  })
-  .catch((err) => {
-    console.error("Db connection failed", err);
-  });
+// mongoose
+//   .connect(mongoURI, {
+//     useCreateIndex: true,
+//     useUnifiedTopology: true,
+//     useFindAndModify: true,
+//     useNewUrlParser: true,
+//   })
+//   .then(() => {
+//     app.listen(port, () => {
+//       console.log(`DB connected and the server is runnning at ${port}`);
+//     });
+//   })
+//   .catch((err) => {
+//     console.error("Db connection failed", err);
+//   });
 
 module.exports = app;
