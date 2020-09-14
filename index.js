@@ -8,10 +8,9 @@ const mongoose=require('mongoose')
 
 app.use(express.urlencoded());
 
-mongoose.set('useNewUrlParser', true);
-mongoose.set('useFindAndModify', false);
+
 // Parse JSON bodies (as sent by API clients)
-const mongoURI = "mongodb://localhost/blog"
+const mongoURI = "mongodb://localhost:27017"+"/blog"
 console.log(mongoURI);
 
 app.use(express.json());

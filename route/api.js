@@ -9,20 +9,20 @@ router.get('/',(req,res)=>{
 router.get('/allblog',(req,res)=>{
     const page=req.query.page;
     const start=(page-1)*5;
-    console.log(req.query.search);
     const s=req.query.search;
     const end=page*5;
     const results={};
-    console.log(start+" "+end+" "+page);
     console.log("reaching all blog");
-    if(s!=undefined){
+    if(s){
         console.log("come in if");
         var regex=new RegExp(s,'i');
+        res.json("from if");
         blogSchema.findOne({description:regex})
         .then(data=>res.json({status:"sucess",result:data}))
         .catch(err=>res.json({status:"failed"})) 
     }else{
-    blogSchema.find({})
+
+        blogSchema.find({})
         .limit(5).skip(start)
         .then(data=>res.json(data))
         .catch(err=>res.json({status:"failed"}))
