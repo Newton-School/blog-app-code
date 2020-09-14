@@ -43,7 +43,6 @@ exports.create = (req, res) => {
 			res.status(200).json({
 				status: 'success',
 				result: {
-					_id,
 					topic,
 					description,
 					posted_at,
