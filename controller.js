@@ -53,8 +53,8 @@ exports.updateBlog=(req,res)=>{
     })
 };
 exports.deleteBlog=(req,res)=>{
-    const {_id}=req.params;
-    Blogs.findOneAndDelete({_id:_id}).exec((err,result)=>{
+    const {d}=req.params;
+    Blogs.findOneAndDelete({_id:id}).exec((err,result)=>{
         if(err){
             return res.json({
                 status:"failed",
