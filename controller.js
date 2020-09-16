@@ -10,7 +10,7 @@ exports.getBlogs=(req,res)=>{
         }
         return res.json({
             status:'success',
-            result:[result]
+            result,
         })
     })
 };
