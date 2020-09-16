@@ -1,9 +1,7 @@
 const express = require('express')
 const app = express()
-const bodyParser = require("body-parser");
 const port = process.env.PORT || 5000
-const serialiser = require('node-serialize')
-const mongodb = require('mongodb');
+
 const mongoose=require('mongoose')
 
 app.use(express.urlencoded());
