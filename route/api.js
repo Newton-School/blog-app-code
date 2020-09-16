@@ -40,6 +40,9 @@ router.get('/allblog',async (req,res)=>{
     }
     })
 
+router.get('/allblog/:id',(req,res)=>{
+    blogSchema.findById({_id:req.params.id}).then(blog=>res.json({status:"sucess",result:blog})).catch(err=>res.json({status:"failed"}))
+})
 
 router.post('/post/blog',(req,res)=>{
     console.log(req.body);
