@@ -19,7 +19,7 @@ exports.addBlog=(req,res)=>{
     const {topic,description,posted_at,posted_by}=req.body;
     const blogData=new Blogs({topic,description,posted_at,posted_by});
     blogData.save((err,result)=>{
-        if(err){
+        if(err ){
             return res.json({
                 status:'failed'
 
@@ -53,8 +53,8 @@ exports.updateBlog=(req,res)=>{
     })
 };
 exports.deleteBlog=(req,res)=>{
-    const {id}=req.params;
-    Blogs.findOneAndDelete({_id:id}).exec((err,result)=>{
+    const {_id}=req.params;
+    Blogs.findOneAndDelete({_id:_id}).exec((err,result)=>{
         if(err){
             return res.json({
                 status:"failed",
