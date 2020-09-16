@@ -14,7 +14,8 @@ const blogSchema=new mongoose.Schema({
     },
     posted_by:{
         type:String
-    }
+    },
+    time : { type: Number, default: (new Date()).getTime() } 
 })
 
 module.exports=mongoose.model('blog',blogSchema);
