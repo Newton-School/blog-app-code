@@ -10,7 +10,7 @@ app.use(express.urlencoded());
 
 
 // Parse JSON bodies (as sent by API clients)
-const mongoURI = "mongodb://localhost:27017"+"/blog"
+const mongoURI = "mongodb+srv://Umesh123:Umesh123@cluster0.moi8u.mongodb.net/blog?retryWrites=true&w=majority"
 console.log(mongoURI);
 
 
