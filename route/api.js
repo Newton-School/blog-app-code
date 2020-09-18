@@ -26,7 +26,7 @@ router.get('/allblog',async (req,res)=>{
     if(s){
         console.log("come in if");
         var regex=new RegExp(s);
-        blogSchema.findOne({description:{$regex:new RegExp(req.params.search)}})
+        blogSchema.find({description:{$regex:new RegExp(req.params.search)}}).limit(1)
         .then(data=>res.json({status:"success",result:data}))
         .catch(err=>res.json({status:"failed"})) 
     }else{
@@ -101,7 +101,7 @@ router.delete('/delete/blog/:id',(req,res)=>{
             return res.json({status:"failed"})
         }else{
             console.log(data);
-            blogSchema.remove({_id:req.params.id}).then(sucess=>res.json({status:"success",result:data})).catch(err=>res.json({status:"failed"}))
+            blogSchema.remove({_id:req.params.id}).then(sucess=>res.json({status:"failed",result:data})).catch(err=>res.json({status:"failed"}))
         }
     })
     // blogSchema.remove({_id:req.params.id}).then(sucess=>res.json({status:"success",result:forSend})).catch(err=>res.json({status:"failed"}))
