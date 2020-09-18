@@ -1,6 +1,6 @@
 const Blogs = require('./models');
 
-exports.addblog=(req,res)=>{
+exports.addBlog=(req,res)=>{
     const{topic,description,posted_at,posted_by}=req.body;
     const blog = new Blogs({topic,description,posted_at,posted_by});
     blog.save((err,result)=>{
