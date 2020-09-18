@@ -13,7 +13,7 @@ router.get('/allblog',async (req,res)=>{
     const end=page*5;
     const results={};
     const size= await blogSchema.countDocuments({})
-   
+   console.log(s);
     results.current=page;
     if(start>0){
         results.prev=page-1;
@@ -22,18 +22,16 @@ router.get('/allblog',async (req,res)=>{
     if(total>page){
         results.next=total;
     }
-    console.log(size);
-    console.log("reaching all blog");
+
     if(s){
         console.log("come in if");
         var regex=new RegExp(s,'i');
-        res.json("from if");
-        blogSchema.findOne({description:regex})
-        .then(data=>res.json({status:"success",size:results,result:data}))
+        blogSchema.findOne({description:/react/})
+        .then(data=>console.log(data))
         .catch(err=>res.json({status:"failed"})) 
     }else{
-        
-        blogSchema.find({})
+        console.log("from else");
+        blogSchema.find({},{__v:0})
         .limit(5).skip(start)
         .then(data=>res.json({status:"success",size:results,result:data}))
         .catch(err=>res.json({status:"failed"}))
@@ -65,16 +63,18 @@ router.put('/update/blog/:id',(req,res)=>{
     if(req.body.description=="" || req.body.topic=="" || req.body.posted_at=="" || req.body.posted_by==""){
         return res.json({status:"failed"})
     }
-    blogSchema.findOne({_id:req.params.id},function(err,data){
+    let forSend;
+    blogSchema.findOne({_id:req.params.id},{_v:0},function(err,data){
         if(err){
             return res.json({status:"failed"})
         }
+        forSend=data;
     })
     
     blogSchema.findByIdAndUpdate(req.params.id, req.body,{new:true},(err,post)=>{
             if(err){
                 return res.json({status:"failed"})
-            }return res.json({status:"success",result:post})
+            }return res.json({status:"success",result:forSend})
         })
     })
 
