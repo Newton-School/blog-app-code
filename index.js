@@ -5,6 +5,7 @@ const port = process.env.PORT || 5000
 const mongoose=require('mongoose')
 
 app.use(express.urlencoded());
+app.use(express.json());
 
 
 // Parse JSON bodies (as sent by API clients)
@@ -20,7 +21,6 @@ app.use((req, res, next) => {
   });
 
 
-app.use(express.json());
 mongoose.connect(mongoURI,{ useNewUrlParser: true,useUnifiedTopology: true })    
 .then(()=>console.log("mongo db connected"))
 .catch((err)=>console.log(err))
