@@ -77,7 +77,17 @@ router.put('/update/blog/:id',(req,res)=>{
 
 router.delete('/delete/blog/:id',(req,res)=>{
     console.log(req.params.id);
-    blogSchema.remove({_id:req.params.id}).then(sucess=>res.json({status:"success",result:sucess})).catch(err=>res.json({status:"failed"}))
+
+    blogSchema.findOne({_id:req.params.id},function(err,data){
+        if(err){
+            return res.json({status:"failed"})
+        }
+        data.remove().then(d=>res.json({status:"success",result:d}))
+    })
+    // router.get('/allblog/:id',(req,res)=>{
+    //     blogSchema.findById({_id:req.params.id}).then(blog=>res.json({status:"success",result:blog})).catch(err=>res.json({status:"failed"}))
+    // })
+    // blogSchema.remove({_id:req.params.id}).then(sucess=>res.json({status:"success",result:sucess})).catch(err=>res.json({status:"failed"}))
     // blogSchema.findByIdAndDelete(req.params.id).then(sucess=>res.json({status:"success",result:sucess})).catch(err=>res.json({status:"failed"}))
 })
 module.exports=router
