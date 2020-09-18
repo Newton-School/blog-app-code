@@ -65,6 +65,11 @@ router.put('/update/blog/:id',(req,res)=>{
     if(req.body.description=="" || req.body.topic=="" || req.body.posted_at=="" || req.body.posted_by==""){
         return res.json({status:"failed"})
     }
+    blogSchema.findOne({_id:req.params.id},function(err,data){
+        if(err){
+            return res.json({status:"failed"})
+        }
+    })
     
     blogSchema.findByIdAndUpdate(req.params.id, req.body,{new:true},(err,post)=>{
             if(err){
