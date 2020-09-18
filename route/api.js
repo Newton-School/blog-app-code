@@ -25,9 +25,9 @@ router.get('/allblog',async (req,res)=>{
 
     if(s){
         console.log("come in if");
-        var regex=new RegExp(s,'i');
-        blogSchema.findOne({description:/react/})
-        .then(data=>console.log(data))
+        var regex=new RegExp(s);
+        blogSchema.findOne({description:{$regex:new RegExp(req.params.search)}})
+        .then(data=>res.json({status:"success",result:data}))
         .catch(err=>res.json({status:"failed"})) 
     }else{
         console.log("from else");
