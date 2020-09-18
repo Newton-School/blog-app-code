@@ -73,8 +73,11 @@ router.put('/update/blog/:id',(req,res)=>{
     
     blogSchema.findByIdAndUpdate(req.params.id, req.body,{new:true},(err,post)=>{
             if(err||!post){
+                console.log("inside put if");
                 return res.json({status:"failed"})
-            }return res.json({status:"success",result:req.body})
+            }
+            console.log("outSide if");
+            return res.json({status:"failed",result:req.body})
         })
     })
 
