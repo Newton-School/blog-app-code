@@ -31,7 +31,7 @@ router.get('/allblog',async (req,res)=>{
         .catch(err=>res.json({status:"failed"})) 
     }else{
         console.log("from else");
-        blogSchema.find({},{__v:0})
+        blogSchema.find({})
         .limit(5).skip(start)
         .then(data=>res.json({status:"success",size:results,result:data}))
         .catch(err=>res.json({status:"failed"}))
@@ -64,7 +64,7 @@ router.put('/update/blog/:id',(req,res)=>{
         return res.json({status:"failed"})
     }
     let forSend;
-    blogSchema.findOne({_id:req.params.id},{_v:0},function(err,data){
+    blogSchema.findOne({_id:req.params.id},function(err,data){
         if(err){
             return res.json({status:"failed"})
         }
@@ -83,16 +83,28 @@ router.put('/update/blog/:id',(req,res)=>{
 router.delete('/delete/blog/:id',(req,res)=>{
     console.log(req.params.id);
 
-    blogSchema.findOne({_id:req.params.id},function(err,data){
-        if(err){
-            return res.json({status:"failed"})
-        }
-        data.remove().then(d=>res.json({status:"success",result:d}))
-    })
+    // blogSchema.findOne({_id:req.params.id},function(err,data){
+    //     if(err){
+    //         return res.json({status:"failed"})
+    //     }
+    //     console.log(data.topic);
+    //     console.log(data.description);
+    //     console.log(data.posted_at);
+    //     res.json({status:"success",result:data})
+    // })
     // router.get('/allblog/:id',(req,res)=>{
     //     blogSchema.findById({_id:req.params.id}).then(blog=>res.json({status:"success",result:blog})).catch(err=>res.json({status:"failed"}))
     // })
-    // blogSchema.remove({_id:req.params.id}).then(sucess=>res.json({status:"success",result:sucess})).catch(err=>res.json({status:"failed"}))
+    
+    blogSchema.findOne({_id:req.params.id},{_v:0},function(err,data){
+        if(!data){
+            return res.json({status:"failed"})
+        }else{
+            console.log(data);
+            blogSchema.remove({_id:req.params.id}).then(sucess=>res.json({status:"success",result:data})).catch(err=>res.json({status:"failed"}))
+        }
+    })
+    // blogSchema.remove({_id:req.params.id}).then(sucess=>res.json({status:"success",result:forSend})).catch(err=>res.json({status:"failed"}))
     // blogSchema.findByIdAndDelete(req.params.id).then(sucess=>res.json({status:"success",result:sucess})).catch(err=>res.json({status:"failed"}))
 })
 module.exports=router

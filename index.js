@@ -21,7 +21,7 @@ app.use((req, res, next) => {
   });
 
 
-mongoose.connect(mongoURI,{ useNewUrlParser: true,useUnifiedTopology: true })    
+mongoose.connect(mongoURI,{ useNewUrlParser: true,useUnifiedTopology: true, useFindAndModify:true })    
 .then(()=>console.log("mongo db connected"))
 .catch((err)=>console.log(err))
 
