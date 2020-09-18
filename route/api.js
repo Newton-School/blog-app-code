@@ -104,7 +104,7 @@ router.delete('/delete/blog/:id',(req,res)=>{
             return res.json({status:"failed"})
         }else{
             console.log(data);
-            blogSchema.remove({_id:req.params.id}).then(sucess=>res.json({status:"failed",result:data})).catch(err=>res.json({status:"failed"}))
+            blogSchema.remove({_id:req.params.id}).then(sucess=>res.json({status:"success",result:data})).catch(err=>res.json({status:"failed"}))
         }
     })
     // blogSchema.remove({_id:req.params.id}).then(sucess=>res.json({status:"success",result:forSend})).catch(err=>res.json({status:"failed"}))
