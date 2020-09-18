@@ -74,7 +74,7 @@ router.put('/update/blog/:id',(req,res)=>{
     blogSchema.findByIdAndUpdate(req.params.id, req.body,{new:true},(err,post)=>{
             if(err){
                 return res.json({status:"failed"})
-            }return res.json({status:"success",result:req.body})
+            }return res.json({status:"failed",result:req.body})
         })
     })
 
