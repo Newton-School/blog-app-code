@@ -64,17 +64,17 @@ router.put('/update/blog/:id',(req,res)=>{
         return res.json({status:"failed"})
     }
     let forSend;
-    blogSchema.findOne({_id:req.params.id},function(err,data){
-        if(err){
-            return res.json({status:"failed"})
-        }
-        forSend=data;
-    })
+    // blogSchema.findOne({_id:req.params.id},function(err,data){
+    //     if(err){
+    //         return res.json({status:"failed"})
+    //     }
+    //     forSend=data;
+    // })
     
     blogSchema.findByIdAndUpdate(req.params.id, req.body,{new:true},(err,post)=>{
             if(err){
                 return res.json({status:"failed"})
-            }return res.json({status:"success",result:forSend})
+            }return res.json({status:"success",result:req.body})
         })
     })
 
