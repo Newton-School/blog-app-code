@@ -29,7 +29,7 @@ router.get('/allblog',async (req,res)=>{
         var regex=new RegExp(s,'i');
         res.json("from if");
         blogSchema.findOne({description:regex})
-        .then(data=>res.json({status:"sucess",size:results,result:data}))
+        .then(data=>res.json({status:"success",size:results,result:data}))
         .catch(err=>res.json({status:"failed"})) 
     }else{
         
@@ -41,7 +41,7 @@ router.get('/allblog',async (req,res)=>{
     })
 
 router.get('/allblog/:id',(req,res)=>{
-    blogSchema.findById({_id:req.params.id}).then(blog=>res.json({status:"sucess",result:blog})).catch(err=>res.json({status:"failed"}))
+    blogSchema.findById({_id:req.params.id}).then(blog=>res.json({status:"success",result:blog})).catch(err=>res.json({status:"failed"}))
 })
 
 router.post('/post/blog',(req,res)=>{
@@ -77,6 +77,6 @@ router.put('/update/blog/:id',(req,res)=>{
 
 router.delete('/delete/blog/:id',(req,res)=>{
     console.log(req.params.id);
-    blogSchema.findByIdAndDelete(req.params.id).then(sucess=>res.json({status:"sucess",result:"post deleted"})).catch(err=>res.json({status:"failed"}))
+    blogSchema.findByIdAndDelete(req.params.id).then(sucess=>res.json({status:"success",result:"post deleted"})).catch(err=>res.json({status:"failed"}))
 })
 module.exports=router
