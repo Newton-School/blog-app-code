@@ -77,6 +77,7 @@ router.put('/update/blog/:id',(req,res)=>{
 
 router.delete('/delete/blog/:id',(req,res)=>{
     console.log(req.params.id);
-    blogSchema.findByIdAndDelete(req.params.id).then(sucess=>res.json({status:"success",result:"post deleted"})).catch(err=>res.json({status:"failed"}))
+    blogSchema.remove({_id:req.params.id}).then(sucess=>res.json({status:"success",result:sucess})).catch(err=>res.json({status:"failed"}))
+    // blogSchema.findByIdAndDelete(req.params.id).then(sucess=>res.json({status:"success",result:sucess})).catch(err=>res.json({status:"failed"}))
 })
 module.exports=router
