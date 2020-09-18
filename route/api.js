@@ -72,9 +72,9 @@ router.put('/update/blog/:id',(req,res)=>{
     // })
     
     blogSchema.findByIdAndUpdate(req.params.id, req.body,{new:true},(err,post)=>{
-            if(err){
+            if(err||!post){
                 return res.json({status:"failed"})
-            }return res.json({status:"failed",result:req.body})
+            }return res.json({status:"success",result:req.body})
         })
     })
 
@@ -97,7 +97,7 @@ router.delete('/delete/blog/:id',(req,res)=>{
     // })
     
     blogSchema.findOne({_id:req.params.id},{_v:0},function(err,data){
-        if(!data){
+        if(err||!data){
             return res.json({status:"failed"})
         }else{
             console.log(data);
