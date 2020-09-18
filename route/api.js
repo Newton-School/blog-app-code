@@ -35,7 +35,7 @@ router.get('/allblog',async (req,res)=>{
         
         blogSchema.find({})
         .limit(5).skip(start)
-        .then(data=>res.json({status:"sucess",size:results,result:data}))
+        .then(data=>res.json({status:"success",size:results,result:data}))
         .catch(err=>res.json({status:"failed"}))
     }
     })
@@ -53,7 +53,7 @@ router.post('/post/blog',(req,res)=>{
             posted_by:req.body.posted_by
         })
 
-        newPost.save().then(post=>res.json({status:"sucess",result:post})).catch(err=>res.json({status:"failed"}))
+        newPost.save().then(post=>res.json({status:"success",result:post})).catch(err=>res.json({status:"failed"}))
     })
 
 
@@ -62,14 +62,14 @@ router.put('/update/blog/:id',(req,res)=>{
     console.log(req.params.id);
     // var update=new blogSchema(req.body);
     // console.log(update);
-    if(req.body.description==""){
+    if(req.body.description=="" || req.body.topic=="" || req.body.posted_at=="" || req.body.posted_by==""){
         return res.json({status:"failed"})
     }
     
     blogSchema.findByIdAndUpdate(req.params.id, req.body,{new:true},(err,post)=>{
             if(err){
                 return res.json({status:"failed"})
-            }return res.json({status:"sucess",result:post})
+            }return res.json({status:"success",result:post})
         })
     })
 
