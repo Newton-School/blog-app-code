@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const port = 3000
 const serialiser = require('node-serialize')
 const mongodb = require('mongodb');
+const mongoose=require("mongoose");
 
 app.use(express.urlencoded());
 app.use(express.json());
@@ -26,7 +27,7 @@ app.get('/', (req, res) => res.send('Hello World!'))
 
 // here
 
-const mongoose=require("mongoose");
+
 
 
 const BlogSchema=new mongoose.Schema({
