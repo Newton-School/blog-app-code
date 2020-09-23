@@ -3,10 +3,6 @@ const BlogSchema = require("../model/BlogSchema");
 const blogSchema = require("../model/BlogSchema");
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
 router.get("/allblog", (req, res) => {
   const { page, search } = req.query;
 
