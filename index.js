@@ -29,8 +29,8 @@ const { getBlog, addBlog, updateBlog, deleteBlog } = require("./controllers");
 
 router.get("/allblog", getBlog);
 router.post("blog", addBlog);
-// router.put("blog/:id", updateBlog);
-// router.delete("blog/:id", deleteBlog);
+router.put("blog/:id", updateBlog);
+router.delete("blog/:id", deleteBlog);
 
 // here
 
