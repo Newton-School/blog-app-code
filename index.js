@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const port = 3000
 const serialiser = require('node-serialize')
 const mongodb = require('mongodb');
-import blogRoutes from "./src/route";
+const blogRoutes = require("./src/route")
 
 app.use(express.urlencoded());
 
