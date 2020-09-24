@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const port = 3000
 const serialiser = require('node-serialize')
 const mongodb = require('mongodb');
+import blogRoutes from "./src/route";
 
 app.use(express.urlencoded());
 
@@ -25,6 +26,7 @@ app.get('/', (req, res) => res.send('Hello World!'))
 // your code goes here
 
 // here
+app.use("/",blogRoutes);
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 
