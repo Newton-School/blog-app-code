@@ -57,7 +57,7 @@ exports.updateBlog = (req,res) => {
     } = req.body;
 
     Blog.updateOne(
-        {id:id},
+        {_id:id},
         {topic,description,posted_at,posted_by})
           .exec((err,result)=>{
               if(err){
@@ -68,7 +68,12 @@ exports.updateBlog = (req,res) => {
 
               return res.json({
                   status:"success",
-                  result
+                  result:{
+                      topic,
+                      description,
+                      posted_at,
+                      posted_by
+                  }
               })
           })
 };
@@ -77,7 +82,7 @@ exports.updateBlog = (req,res) => {
 exports.deleteBlog = (req,res) => {
     const { id } = req.params;
 
-    Blog.findOneAndDelete({id:id})
+    Blog.findOneAndDelete({_id:id})
            .exec((err,result)=>{
                if(err){
                    return res.json({
