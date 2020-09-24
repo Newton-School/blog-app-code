@@ -32,16 +32,14 @@ exports.addBlog = async (req, res) => {
       posted_at,
       posted_by,
     });
-    blog.save((err, result) => {
-      if (err) {
-        return res.json({
-          status: "failed",
-        });
-      }
+    if (!blog) {
       return res.json({
-        status: "success",
-        result,
+        status: "failed",
       });
+    }
+    blog.save();
+    return res.json({
+      status: "success",
     });
   } catch (err) {
     console.log(err.message);
