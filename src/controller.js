@@ -1,9 +1,9 @@
 const Blog = require("./model");
 
-exports.getAllBlogs = (req,res) => {
+exports.getAllBlogs = async(req,res) => {
     const {page, search} = req.query;
 
-    Blog.find({topic:{$regex:search,$options:"i"}})
+    await Blog.find({topic:{$regex:search,$options:"i"}})
        .skip((parseInt(page)-1)*5)
        .limit(5)
        .exec((err,result)=>{
@@ -22,7 +22,7 @@ exports.getAllBlogs = (req,res) => {
 
 
 
-exports.addBlog = (req,res) => {
+exports.addBlog = async(req,res) => {
     const {topic,
         description,
         posted_at,
@@ -31,7 +31,7 @@ exports.addBlog = (req,res) => {
 
   const newBlog = new Blog({topic,description,posted_at,posted_by});
 
-  newBlog.save((err,result) => {
+  await newBlog.save((err,result) => {
       if(err){
           return res.json({
               status:"failed"
@@ -47,7 +47,7 @@ exports.addBlog = (req,res) => {
 };
 
 
-exports.updateBlog = (req,res) => {
+exports.updateBlog = async (req,res) => {
     const { id } = req.params;
     const { 
         topic,
@@ -56,7 +56,7 @@ exports.updateBlog = (req,res) => {
         posted_by
     } = req.body;
 
-    Blog.updateOne(
+    await Blog.updateOne(
         {_id:id},
         {topic,description,posted_at,posted_by})
           .exec((err,result)=>{
@@ -79,10 +79,10 @@ exports.updateBlog = (req,res) => {
 };
 
 
-exports.deleteBlog = (req,res) => {
+exports.deleteBlog = async(req,res) => {
     const { id } = req.params;
 
-    Blog.findOneAndDelete({_id:id})
+   await Blog.findOneAndDelete({_id:id})
            .exec((err,result)=>{
                if(err){
                    return res.json({
