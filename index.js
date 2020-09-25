@@ -13,7 +13,7 @@ app.use(cors());
 // DB CONNECTION
 mongoose
   .connect(
-    "mongodb+srv://duser:K@m123456@sami.ijkpq.mongodb.net/test?retryWrites=true&w=majority",
+    "mongodb+srv://duser:K@m123456@sami.ijkpq.mongodb.net/Blog?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useCreateIndex: true,
