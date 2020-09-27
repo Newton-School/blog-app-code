@@ -32,7 +32,11 @@ exports.updatePost = async (req, res, next) => {
     const options = { new: true };
     const result = await Blog.findByIdAndUpdate(id, updates, options);
     res.json(result);
-  } catch (error) {}
+  } catch (error) {
+    return res.json({
+      status: "failed"
+    });
+  }
 };
 exports.deletePost = async (req, res, next) => {
   const { id } = req.params;
