@@ -17,7 +17,7 @@ const connection = mongodb.MongoClient.connect(mongoURI, (err, dbClient) => {
     console.log("connection failed");
     return;
   } else {
-    console.log("connected");
+    console.log(dbClient);
   }
 });
 
