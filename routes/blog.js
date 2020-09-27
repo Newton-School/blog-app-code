@@ -2,16 +2,21 @@ const { json } = require("body-parser");
 const express = require("express");
 const router = express.Router();
 const Blog = require("../models/Blog");
+const feed = require("../controller/blogControl");
 
-router.get("/", async (req, res) => {
+router.post("/post/blog", feed.createPost);
+router.put("/update/blog/:id", feed.updatePost);
+router.delete("/delete/blog/:id", feed.deletePost);
+router.get("/home", control.getPost);
+/*router.get("/", async (req, res) => {
   try {
-    const blogs = await Blog.find();
+    const blogs = await Blog.find;
     res.json(blogs);
   } catch (err) {
     res.json({ message: err });
   }
 });
-
+*/
 router.get("/:blogId", async (req, res) => {
   try {
     const blog = await Blog.findById(req.params.blogId);
@@ -28,6 +33,7 @@ router.post("/post/blog", (req, res) => {
     posted_at: req.body.posted_at,
     posted_by: req.body.posted_by
   });
+  console.log(blog.topic);
   blog
     .save()
     .then(data => {
@@ -41,7 +47,10 @@ router.post("/post/blog", (req, res) => {
 router.delete("/delete/blog/:id", async (req, res) => {
   try {
     const deleteBlog = await Blog.remove({ _id: req.params.blogId });
-    res.json(deleteBlog);
+    res.json({
+      status: success,
+      result: deleteBlog
+    });
   } catch (err) {
     res.json({ message: err });
   }
