@@ -7,7 +7,7 @@ const feed = require("../controller/blogControl");
 router.post("/post/blog", feed.createPost);
 router.put("/update/blog/:id", feed.updatePost);
 router.delete("/delete/blog/:id", feed.deletePost);
-router.get("/home", control.getPost);
+//router.get("/home", control.getPost);
 /*router.get("/", async (req, res) => {
   try {
     const blogs = await Blog.find;
