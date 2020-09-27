@@ -16,7 +16,7 @@ router.delete("/delete/blog/:id", feed.deletePost);
     res.json({ message: err });
   }
 });
-*/
+
 router.get("/:blogId", async (req, res) => {
   try {
     const blog = await Blog.findById(req.params.blogId);
@@ -73,5 +73,5 @@ router.put("/update/blog/:id", async (req, res) => {
   } catch (err) {
     res.json({ message: err });
   }
-});
+});*/
 module.exports = router;
