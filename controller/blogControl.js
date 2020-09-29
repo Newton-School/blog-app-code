@@ -8,6 +8,7 @@ exports.createPost = (req, res, next) => {
   const blog = new Blog({
     topic: req.body.topic,
     description: req.body.description,
+    posted_at: req.body.posted_at,
     posted_by: req.body.posted_by
   });
 
