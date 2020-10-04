@@ -41,7 +41,7 @@ app.get("/allblog", (req, res) => {
   Blog.find({ topic: { $regex: userPattern } })
     .skip(page)
     .limit(5)
-    .then((blogs) => res.json({ result: blogs, status: "success" }))
+    .then((blogs) => res.status(200).json({ result: blogs, status: "success" }))
     .catch((err) => {
       res.json({ status: "failed" });
     });
@@ -61,7 +61,7 @@ app.post("/post/blog", (req, res) => {
       if (!result) {
         return res.json({ status: "failed" });
       }
-      res.json({ result: result, status: "success" });
+      res.status(200).json({ result: result, status: "success" });
     })
     .catch((err) => {
       return res.json({ status: "failed" });
