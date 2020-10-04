@@ -28,7 +28,6 @@ const connection = mongodb.MongoClient.connect(mongoURI, (err, dbClient) => {
     return;
   }
 });
-console.log("***********************");
 
 app.get("/", (req, res) => res.send("Hello World!"));
 

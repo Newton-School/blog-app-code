@@ -3,10 +3,10 @@ const { ObjectId } = mongoose.Schema.Types;
 
 const blogSchema = new mongoose.Schema(
   {
-    topic: String,
-    description: String,
-    posted_at: String,
-    posted_by: String,
+    topic: { type: String, required: true },
+    description: { type: String, required: true },
+    posted_at: { type: String, required: true },
+    posted_by: { type: String, required: true },
   },
   { versionKey: false }
 );
