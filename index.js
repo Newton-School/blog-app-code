@@ -37,7 +37,8 @@ app.get("/", (req, res) => res.send("Hello World!"));
 // here
 app.get("/allblog", (req, res) => {
   let page = parseInt(req.query.page);
-  let search = req.query.search.toLowerCase();
+  let search = req.query.search;
+  search = search.toLowerCase();
   let userPattern = new RegExp(search);
   Blog.find({ topic: { $regex: userPattern } })
     .skip(page)
@@ -49,9 +50,10 @@ app.get("/allblog", (req, res) => {
 });
 
 app.post("/post/blog", (req, res) => {
-  const { topic, description, posted_at, posted_by } = req.body;
+  let { topic, description, posted_at, posted_by } = req.body;
+  topic = topic.toLowerCase();
   const blog = new Blog({
-    topic: topic.toLowerCase(),
+    topic: topic,
     description,
     posted_at,
     posted_by,
