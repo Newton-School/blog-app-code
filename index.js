@@ -61,7 +61,7 @@ app.post("/post/blog", (req, res) => {
       if (!result) {
         return res.json({ status: "failed" });
       }
-      res.status(200).json({ result: result, status: "success" });
+      res.json({ result: result, status: "success" });
     })
     .catch((err) => {
       return res.json({ status: "failed" });
@@ -83,20 +83,18 @@ app.put("/update/blog/:id", (req, res) => {
     }
   ).exec((err, result) => {
     if (err || !result) {
-      res.json({ status: "failed" });
-    } else {
-      res.status(200).json({ result: result, status: "success" });
+      return res.json({ status: "failed" });
     }
+    res.json({ result: result, status: "success" });
   });
 });
 
 app.delete("/delete/blog/:id", (req, res) => {
   Blog.findByIdAndDelete(req.params.id, function (err, result) {
     if (err || !result) {
-      res.json({ status: "failed" });
-    } else {
-      res.status(200).json({ result: result, status: "success" });
+      return res.json({ status: "failed" });
     }
+    res.json({ result: result, status: "success" });
   });
 });
 
