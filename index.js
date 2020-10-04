@@ -41,7 +41,7 @@ app.get("/allblog", (req, res) => {
   Blog.find({ topic: { $regex: userPattern } })
     .skip(page)
     .limit(5)
-    .then((blogs) => res.status(200).json({ result: blogs, status: "success" }))
+    .then((blogs) => res.json({ result: blogs, status: "success" }))
     .catch((err) => {
       res.json({ status: "failed" });
     });
