@@ -42,9 +42,9 @@ app.get("/allblog", (req, res) => {
   Blog.find({ topic: { $regex: userPattern } })
     .skip(page)
     .limit(5)
-    .then((blogs) => res.status(200).json({ result: blogs }))
+    .then((blogs) => res.status(200).json({ result: blogs, status: "success" }))
     .catch((err) => {
-      console.log(err);
+      res.json({ status: "failed" });
     });
 });
 
@@ -59,10 +59,10 @@ app.post("/post/blog", (req, res) => {
   blog
     .save()
     .then((result) => {
-      res.status(200).json({ result: result });
+      res.status(200).json({ result: result, status: "success" });
     })
     .catch((err) => {
-      console.log(err);
+      res.json({ status: "failed" });
     });
 });
 
@@ -80,20 +80,20 @@ app.put("/update/blog/:id", (req, res) => {
       new: true,
     }
   ).exec((err, result) => {
-    if (err) {
-      return res.status(200).json({ error: err });
+    if (err || !result) {
+      res.json({ status: "failed" });
     } else {
-      res.status(200).json({ result });
+      res.status(200).json({ result: result, status: "success" });
     }
   });
 });
 
 app.delete("/delete/blog/:id", (req, res) => {
   Blog.findByIdAndDelete(req.params.id, function (err, result) {
-    if (err) {
-      console.log(err);
+    if (err || !result) {
+      res.json({ status: "failed" });
     } else {
-      res.status(200).json({ result });
+      res.status(200).json({ result: result, status: "success" });
     }
   });
 });
