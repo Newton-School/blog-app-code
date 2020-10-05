@@ -12,4 +12,4 @@ const BlogSchema = new mongoose.Schema(
   { versionKey: false }
 );
 
-module.exports = model("blog", BlogSchema);
+module.exports = mongoose.model("blog", BlogSchema);
