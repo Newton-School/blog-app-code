@@ -37,7 +37,7 @@ app.get("/", (req, res) => res.send("Hello World!"));
 app.get("/allblog", (req, res) => {
   let page = parseInt(req.query.page);
   let search = req.query.search;
-  if (search[0] == "'") {
+  if (search && search[0] == "'") {
     //for testcase bug
     search = search.slice(1);
   }
