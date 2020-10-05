@@ -10,7 +10,8 @@ app.use(express.urlencoded());
 const Blog = require("./models/Blog");
 
 // Parse JSON bodies (as sent by API clients)
-const mongoURI = "mongodb://localhost:27017" + "/blog";
+const mongoURI =
+  "mongodb+srv://duser:K@m123456@sami.ijkpq.mongodb.net/Blog?retryWrites=true&w=majority";
 console.log(mongoURI);
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
