@@ -31,9 +31,6 @@ const connection = mongodb.MongoClient.connect(mongoURI, (err, dbClient) => {
 
 app.get("/", (req, res) => res.send("Hello World!"));
 
-// your code goes here
-
-// here
 app.get("/allblog", (req, res) => {
   let page = parseInt(req.query.page);
   let search = req.query.search;
