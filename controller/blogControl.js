@@ -1,15 +1,13 @@
 const Blog = require("../models/Blog");
 
 exports.createPost = async (req, res, next) => {
-  const topic = req.body.topic;
-  const description = req.body.description;
-
-  console.log(topic + " " + description);
+  let { _id, topic, description, posted_at, posted_by } = req.body;
   const blog = new Blog({
-    topic: req.body.topic,
-    description: req.body.description,
-    posted_at: req.body.posted_at,
-    posted_by: req.body.posted_by
+    _id: _id,
+    topic: topic,
+    description,
+    posted_at,
+    posted_by,
   });
 
   await blog
@@ -17,8 +15,8 @@ exports.createPost = async (req, res, next) => {
     .then(result => {
       console.log(result);
       res.status(200).json({
-        message: "post created successfully",
-        blog: result
+        blog: result,
+        message: "success"  
       });
     })
     .catch(err => {
