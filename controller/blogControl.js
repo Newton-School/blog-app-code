@@ -29,21 +29,25 @@ exports.createPost = async (req, res, next) => {
     });
 };
 
-exports.updatePost = async (req, res, next) => {
-  try {
-    const id = req.params.id;
-    const updates = req.body;
-    const options = { new: true };
-    const result = await Blog.findByIdAndUpdate(id, updates, options);
-    res.json({
-      status: "success",
-      result: result
-    });
-  } catch (error) {
-    return res.json({
-      status: "failed"
-    });
-  }
+exports.updatePost = (req, res, next) => {
+  const { topic, description, posted_at, posted_by } = req.body;
+  Blog.findByIdAndUpdate(
+    req.params.id,
+    {
+      topic,
+      description,
+      posted_at,
+      posted_by
+    },
+    {
+      new: true
+    }
+  ).exec((err, result) => {
+    if (err || !result) {
+      return res.json({ status: "failed" });
+    }
+    res.json({ result: result, status: "success" });
+  });
 };
 exports.deletePost = (req, res, next) => {
   Blog.findByIdAndDelete(req.params.id, function(err, result) {
