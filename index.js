@@ -53,7 +53,7 @@ app.get("/allblog", async (req, res) => {
     // return response with Blog, total pages, and current page
     res.json({ result: blogs, status: "success" });
   } catch (err) {
-    return res.json({ status: "failed" });
+    return res.json({ status: "failed" }); //
   }
 });
 
