@@ -45,17 +45,11 @@ exports.updatePost = async (req, res, next) => {
     });
   }
 };
-exports.deletePost = async (req, res, next) => {
-  try {
-    const id = req.params.id;
-
-    const result = await Blog.findByIdAndDelete(id);
-    res.status(201).json({
-      message: "success"
-    });
-  } catch (error) {
-    return res.json({
-      status: "failed"
-    });
-  }
+exports.deletePost = (req, res, next) => {
+  Blog.findByIdAndDelete(req.params.id, function(err, result) {
+    if (err || !result) {
+      return res.json({ status: "failed" });
+    }
+    res.json({ result: result, status: "success" });
+  });
 };
