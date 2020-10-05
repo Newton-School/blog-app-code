@@ -13,14 +13,22 @@ const mongoURI =
 console.log(mongoURI);
 
 app.use(express.json());
-const connection = mongodb.MongoClient.connect(mongoURI, (err, dbClient) => {
-  if (err) {
-    console.log("connection failed");
-    return;
-  } else {
-    console.log(dbClient);
+const connection = mongodb.MongoClient.connect(
+  mongoURI,
+  (err, dbClient) => {
+    if (err) {
+      console.log("connection failed");
+      return;
+    } else {
+      console.log(dbClient);
+    }
+  },
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
   }
-});
+);
 
 app.get("/", (req, res) => res.send("Hello World!"));
 app.use("/", feed);
