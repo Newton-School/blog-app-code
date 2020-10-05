@@ -1,6 +1,7 @@
-const { model, Schema } = require("mongoose");
+const mongoose = require("mongoose");
+const { ObjectId } = mongoose.Schema.Types;
 
-const BlogSchema = new Schema(
+const BlogSchema = new mongoose.Schema(
   {
     _id: { type: String, default: mongoose.Types.ObjectId },
     topic: { type: String, required: true },
