@@ -51,7 +51,7 @@ app.get("/allblog", async (req, res) => {
     const count = await Blog.countDocuments();
 
     // return response with Blog, total pages, and current page
-    res.json({ result: blogs });
+    res.json({ result: blogs, status: "success" });
   } catch (err) {
     return res.json({ status: "failed" });
   }
@@ -92,7 +92,7 @@ app.put("/update/blog/:id", (req, res) => {
     if (err || !blog) {
       return res.json({ status: "failed" });
     } else {
-      res.status(200).json({ result: blog });
+      res.status(200).json({ result: blog, status: "success" });
     }
   });
 });
@@ -103,7 +103,7 @@ app.delete("/delete/blog/:id", (req, res) => {
     if (err || !docs) {
       return res.json({ status: "failed" });
     } else {
-      res.status(200).json({ result: docs });
+      res.status(200).json({ result: docs, status: "success" });
       console.log("deleted");
     }
   });
