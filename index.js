@@ -7,6 +7,7 @@ const mongodb = require("mongodb");
 const feed = require("./routes/blog");
 const mongoose = require("mongoose");
 app.use(express.urlencoded());
+const Blog = require("./models/Blog");
 
 // Parse JSON bodies (as sent by API clients)
 const mongoURI =
@@ -40,8 +41,8 @@ app.get("/allblog", (req, res) => {
   Blog.find({ topic: { $regex: userPattern } })
     .skip(page)
     .limit(5)
-    .then((blogs) => res.status(200).json({ result: blogs, status: "success" }))
-    .catch((err) => {
+    .then(blogs => res.status(200).json({ result: blogs, status: "success" }))
+    .catch(err => {
       res.json({ status: "failed" });
     });
 });
@@ -53,17 +54,17 @@ app.post("/post/blog", (req, res) => {
     topic: topic,
     description,
     posted_at,
-    posted_by,
+    posted_by
   });
   blog
     .save()
-    .then((result) => {
+    .then(result => {
       if (!result) {
         return res.json({ status: "failed" });
       }
       res.status(200).json({ result: result, status: "success" });
     })
-    .catch((err) => {
+    .catch(err => {
       return res.json({ status: "failed" });
     });
 });
@@ -76,10 +77,10 @@ app.put("/update/blog/:id", (req, res) => {
       topic,
       description,
       posted_at,
-      posted_by,
+      posted_by
     },
     {
-      new: true,
+      new: true
     }
   ).exec((err, result) => {
     if (err || !result) {
@@ -90,7 +91,7 @@ app.put("/update/blog/:id", (req, res) => {
 });
 
 app.delete("/delete/blog/:id", (req, res) => {
-  Blog.findByIdAndDelete(req.params.id, function (err, result) {
+  Blog.findByIdAndDelete(req.params.id, function(err, result) {
     if (err || !result) {
       return res.json({ status: "failed" });
     }
