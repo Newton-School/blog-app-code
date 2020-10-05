@@ -1,6 +1,6 @@
 const Blog = require("../models/Blog");
 
-exports.createPost = async (req, res, next) => {
+exports.createPost = (req, res, next) => {
   let { _id, topic, description, posted_at, posted_by } = req.body;
   const blog = new Blog({
     _id: _id,
@@ -10,7 +10,7 @@ exports.createPost = async (req, res, next) => {
     posted_by
   });
 
-  await blog
+   blog
     .save()
     .then(result => {
       console.log(result);
@@ -27,7 +27,7 @@ exports.createPost = async (req, res, next) => {
     });
 };
 
-exports.updatePost = async (req, res, next) => {
+exports.updatePost =  (req, res, next) => {
   const { topic, description, posted_at, posted_by } = req.body;
   Blog.findByIdAndUpdate(
     req.params.id,
@@ -47,7 +47,7 @@ exports.updatePost = async (req, res, next) => {
     res.json({ result: result, status: "success" });
   });
 };
-exports.deletePost = async (req, res, next) => {
+exports.deletePost =  (req, res, next) => {
   Blog.findByIdAndDelete(req.params.id, function(err, result) {
     if (err || !result) {
       return res.json({ status: "failed" });
