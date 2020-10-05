@@ -1,22 +1,24 @@
 const Blog = require("../models/Blog");
 
-exports.createPost = (req, res, next) => {
-  let { _id, topic, description, posted_at, posted_by } = req.body;
+exports.createPost = async (req, res, next) => {
+  const topic = req.body.topic;
+  const description = req.body.description;
+
+  console.log(topic + " " + description);
   const blog = new Blog({
-    _id: _id,
-    topic: topic,
-    description,
-    posted_at,
-    posted_by
+    topic: req.body.topic,
+    description: req.body.description,
+    posted_at: req.body.posted_at,
+    posted_by: req.body.posted_by
   });
 
-   blog
+  await blog
     .save()
     .then(result => {
       console.log(result);
       res.status(200).json({
-        blog: result,
-        message: "success"
+        message: "post created successfully",
+        blog: result
       });
     })
     .catch(err => {
@@ -27,31 +29,33 @@ exports.createPost = (req, res, next) => {
     });
 };
 
-exports.updatePost =  (req, res, next) => {
-  const { topic, description, posted_at, posted_by } = req.body;
-  Blog.findByIdAndUpdate(
-    req.params.id,
-    {
-      topic,
-      description,
-      posted_at,
-      posted_by
-    },
-    {
-      new: true
-    }
-  ).exec((err, result) => {
-    if (err || !result) {
-      return res.json({ status: "failed" });
-    }
-    res.json({ result: result, status: "success" });
-  });
+exports.updatePost = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const updates = req.body;
+    const options = { new: true };
+    const result = await Blog.findByIdAndUpdate(id, updates, options);
+    res.json({
+      status: "success",
+      result: result
+    });
+  } catch (error) {
+    return res.json({
+      status: "failed"
+    });
+  }
 };
-exports.deletePost =  (req, res, next) => {
-  Blog.findByIdAndDelete(req.params.id, function(err, result) {
-    if (err || !result) {
-      return res.json({ status: "failed" });
-    }
-    res.json({ result: result, status: "success" });
-  });
+exports.deletePost = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    const result = await Blog.findByIdAndDelete(id);
+    res.status(201).json({
+      message: "success"
+    });
+  } catch (error) {
+    return res.json({
+      status: "failed"
+    });
+  }
 };
