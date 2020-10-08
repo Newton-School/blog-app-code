@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 const port = 3000
 const serialiser = require('node-serialize')
 const mongodb = require('mongodb');
+const routes=require('./rout');
+const mongoose = require('mongoose');
 
 app.use(express.urlencoded());
 
@@ -23,6 +25,7 @@ const connection = mongodb.MongoClient.connect(mongoURI,(err, dbClient) =>{
 app.get('/', (req, res) => res.send('Hello World!'))
 
 // your code goes here
+app.use('/',routes);
 
 // here
 
